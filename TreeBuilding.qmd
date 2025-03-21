@@ -8,7 +8,7 @@ editor: visual
 ```{r setup}
 library(ape)
 library(phangorn)
-#library(BiocManager)
+library(BiocManager)
 #library(fastreeR)
 #library(utils)
 #library(stats)
@@ -17,6 +17,7 @@ library(phangorn)
 #BiocManager::install("ggtree")
 library(ggtree)
 library(ggplot2)
+library(patchwork)
 
 set.seed(17032025)
 ```
@@ -24,9 +25,10 @@ set.seed(17032025)
 # Phangorn Tree
 
 ```{r}
-felidae <- read.phyDat("FelidaeAligned.fas", format = "fasta")
+#| message: false
+felidae <- read.phyDat("FelidaeAlignedNames.fas", format = "fasta")
 
-fitGTR <- pml_bb(felidae, model="GTR+G(4)+I")
+fitGTR <- pml_bb(felidae, model="GTR+G(4)+I", rearrangement = "NNI", method = "ultrametric")
 ```
 
 ```{r}
@@ -41,25 +43,20 @@ ggtree(fitGTR$tree, branch.length="none") +
 
 ```{r}
 bs <- bootstrap.pml(fitGTR, bs=100, optNni=TRUE,
-    control = pml.control(trace = 0))
+    control = pml.control(trace = 0), jumble = TRUE)
 
 plotBS(midpoint(fitGTR$tree), bs, p = 50, type="p", main="Standard bootstrap")
 
-tree_stdbs <- plotBS(fitGTR$tree, bs, type = "n")
-
-#cnet <- consensusNet(bs, p=0.2)
-#cnet$node.label <- prop.clades(cnet, bs)
-
-#plot(cnet, show.edge.label=TRUE)
+tree_stdbs <- plotBS(fitGTR$tree, bs, type = "p")
 
 ggtree(tree_stdbs, branch.length="none") +
   geom_tiplab(size = 3, color = "purple") +
   xlim(c(0, 50))
 
-ggtree(cnet) +
-    xlim(c(0, 50))
+plot.phylo(tree_stdbs, use.edge.length = FALSE)
 
 ```
+
 
 ```{r}
 #| eval: false
@@ -68,21 +65,3 @@ ggtree(bs, branch.length = "none") +
   facet_wrap( ~.id, scale="free") + 
   theme_tree2()
 ```
-
-## fasttreeR Tree
-
-```{r setup}
-library(fastreeR)
-library(utils)
-library(ape)
-library(stats)
-library(grid)
-library(BiocFileCache)
-```
-
-```{r}
-
-
-fasDistance <- fasta2dist(felidae, kmer = 6)
-```
-

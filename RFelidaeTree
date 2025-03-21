@@ -1,0 +1,75 @@
+#NEXUS
+[R-package APE, Thu Mar 20 21:12:04 2025]
+
+BEGIN TAXA;
+	DIMENSIONS NTAX = 31;
+	TAXLABELS
+		Uncia uncia
+		Puma concolor
+		Prionailurus viverrinus
+		Prionailurus bengalensis
+		Pardofelis marmorata
+		Panthera tigris tigris
+		Panthera tigris sumatrae
+		Panthera tigris corbetti
+		Panthera tigris altaica
+		Panthera pardus
+		Panthera onca
+		Panthera leo
+		Neofelis nebulosa
+		Neofelis diardi
+		Miracinonyx trumani
+		Lynx rufus
+		Lynx pardinus
+		Lynx lynx
+		Lynx canadensis
+		Leopardus tigrinus
+		Leopardus pardalis
+		Homotherium serum
+		Herpailurus yaguarondi
+		Felis silvestris silvestris
+		Felis silvestris caffra
+		Felis silvestris ornata
+		Felis margarita
+		Felis domesticus
+		Felis chaus
+		Catopuma temminckii
+		Acinonyx jubatus
+	;
+END;
+BEGIN TREES;
+	TRANSLATE
+		1	Uncia uncia,
+		2	Puma concolor,
+		3	Prionailurus viverrinus,
+		4	Prionailurus bengalensis,
+		5	Pardofelis marmorata,
+		6	Panthera tigris tigris,
+		7	Panthera tigris sumatrae,
+		8	Panthera tigris corbetti,
+		9	Panthera tigris altaica,
+		10	Panthera pardus,
+		11	Panthera onca,
+		12	Panthera leo,
+		13	Neofelis nebulosa,
+		14	Neofelis diardi,
+		15	Miracinonyx trumani,
+		16	Lynx rufus,
+		17	Lynx pardinus,
+		18	Lynx lynx,
+		19	Lynx canadensis,
+		20	Leopardus tigrinus,
+		21	Leopardus pardalis,
+		22	Homotherium serum,
+		23	Herpailurus yaguarondi,
+		24	Felis silvestris silvestris,
+		25	Felis silvestris caffra,
+		26	Felis silvestris ornata,
+		27	Felis margarita,
+		28	Felis domesticus,
+		29	Felis chaus,
+		30	Catopuma temminckii,
+		31	Acinonyx jubatus
+	;
+	TREE * UNTITLED = [&R] ((21:0.06943790308,29:0.06943790308)1:7.68995713,(22:0.2224286342,(((31:0.07575969446,(2:0.03768997369,15:0.03768997369)0.95:0.03806972077)0.5:0.01944450168,((((18:0.03284150761,(17:0.02731756758,19:0.02731756758)0.61:0.005523940024)0.93:0.0481226079,(20:0.05532052721,23:0.05532052721)0.53:0.0256435883)0.16:0.0001861777737,(3:0.02356199689,4:0.02356199689)1:0.05758829639)0.07:0.002934961066,(16:0.07357233173,((5:0.001499710697,30:0.001499710697)1:0.05920600054,(24:0.01186759061,(27:0.008794955676,(25:0.003991490905,(26:0.001609687078,28:0.001609687078)0.54:0.002381803826)0.74:0.004803464771)0.47:0.003072634932)0.99:0.04883812063)0.45:0.01286662049)0.22:0.01051292262)0.15:0.01111894179)0.93:0.03036735934,((13:0.03050647589,14:0.03050647589)1:0.06225930733,((6:0.00337851595,(9:0.002525868,(8:0.002078494397,7:0.002078494397)0.35:0.0004473736031)0.49:0.0008526479503)1:0.07282998611,(11:0.0684055925,(1:0.06462202079,(10:0.05126281727,12:0.05126281727)0.71:0.01335920352)0.6:0.003783571704)0.64:0.00780290956)0.86:0.01655728117)0.95:0.03280577225)0.99:0.09685707867)1:7.536966399)1;
+END;
