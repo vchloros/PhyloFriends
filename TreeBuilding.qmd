@@ -64,4 +64,6 @@ plot.phylo(tree_stdbs, use.edge.length = FALSE)
 ggtree(bs, branch.length = "none") + 
   facet_wrap( ~.id, scale="free") + 
   theme_tree2()
+
+write.nexus(tree_stdbs, file = "RFelidaeTree")
 ```
