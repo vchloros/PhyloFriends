@@ -14,6 +14,7 @@ code-fold: show
 ---
 
 ```{r setup}
+#| message: false
 library(BiocManager)
 library(ape)
 library(phangorn)
@@ -43,12 +44,12 @@ felidae <- read.phyDat("FelidaeAlignedNames.fas", format = "fasta")
 ## Run Model
 
 ```{r}
-#| message: false
 #estimated time: 11 secs
+#| message: false
 
-#tictoc::tic()
+tictoc::tic()
 fitGTR <- pml_bb(felidae, model="GTR+G(4)+I", rearrangement = "NNI", method = "ultrametric")
-#tictoc::toc()
+tictoc::toc()
 ```
 
 The next function `pml_bb()`is used to construct the tree. We can specify the model that we want: a general relative time model (GTR) that is gamma distributed with 4 categories(G(4)) and invariable sites (I). We'll use a nearest-neighbor interchange rearrangment (NNI) to alter the shape of our tree. Lastly, we'll specify an ultrametric method of building the tree so we can locate a definite root.
