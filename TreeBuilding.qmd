@@ -18,17 +18,24 @@ library(BiocManager)
 library(ggtree)
 library(ggplot2)
 library(patchwork)
+library(tictoc)
 
 set.seed(17032025)
 ```
 
 # Phangorn Tree
 
-```{r}
-#| message: false
+```{r }
 felidae <- read.phyDat("FelidaeAlignedNames.fas", format = "fasta")
+```
 
+```{r run model}
+#elapsed time: 11 secs
+
+#| message: false
+tictoc::tic()
 fitGTR <- pml_bb(felidae, model="GTR+G(4)+I", rearrangement = "NNI", method = "ultrametric")
+tictoc::toc()
 ```
 
 ```{r}
@@ -41,10 +48,17 @@ ggtree(fitGTR$tree, branch.length="none") +
   xlim(c(0, 50))
 ```
 
-```{r}
+```{r bootstrapping}
+#elapsed time: ~10 minutes
+
+tictoc::tic()
 bs <- bootstrap.pml(fitGTR, bs=100, optNni=TRUE,
     control = pml.control(trace = 0), jumble = TRUE)
+tictoc::toc()
+```
 
+
+```{r visualizing}
 plotBS(midpoint(fitGTR$tree), bs, p = 50, type="p", main="Standard bootstrap")
 
 tree_stdbs <- plotBS(fitGTR$tree, bs, type = "p")
@@ -58,12 +72,16 @@ plot.phylo(tree_stdbs, use.edge.length = FALSE)
 ```
 
 
-```{r}
+```{r check bootstrapping}
 #| eval: false
 
 ggtree(bs, branch.length = "none") + 
   facet_wrap( ~.id, scale="free") + 
   theme_tree2()
+```
 
-write.nexus(tree_stdbs, file = "RFelidaeTree")
+```{r export tree}
+png('RFelidaeTree.png')
+plot.phylo(tree_stdbs, use.edge.length = FALSE)
+dev.off()
 ```
