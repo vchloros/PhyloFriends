@@ -57,7 +57,6 @@ bs <- bootstrap.pml(fitGTR, bs=100, optNni=TRUE,
 tictoc::toc()
 ```
 
-
 ```{r visualizing}
 plotBS(midpoint(fitGTR$tree), bs, p = 50, type="p", main="Standard bootstrap")
 
@@ -70,7 +69,6 @@ ggtree(tree_stdbs, branch.length="none") +
 plot.phylo(tree_stdbs, use.edge.length = FALSE)
 
 ```
-
 
 ```{r check bootstrapping}
 #| eval: false
