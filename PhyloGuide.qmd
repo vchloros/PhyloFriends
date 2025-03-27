@@ -15,12 +15,15 @@ code-fold: show
 
 ```{r setup}
 #| message: false
+#| warning: false
 library(BiocManager)
 library(ape)
 library(phangorn)
 library(ggtree)
 library(tictoc) #optional
+```
 
+```{r}
 unregister <- function() {
   env <- foreach:::.foreachGlobals
   rm(list=ls(name=env), pos=env)
@@ -52,7 +55,7 @@ fitGTR <- pml_bb(felidae, model="GTR+G(4)+I", rearrangement = "NNI", method = "u
 tictoc::toc()
 ```
 
-The next function `pml_bb()`is used to construct the tree. We can specify the model that we want: a general relative time model (GTR) that is gamma distributed with 4 categories(G(4)) and invariable sites (I). We'll use a nearest-neighbor interchange rearrangment (NNI) to alter the shape of our tree. Lastly, we'll specify an ultrametric method of building the tree so we can locate a definite root.
+The next function `pml_bb()`is used to construct the tree. We can specify the model that we want: a general relative time model (GTR) that is gamma distributed with 4 categories (G(4)) and invariable sites (I). We'll use a nearest-neighbor interchange rearrangment (NNI) to alter the shape of our tree. Lastly, we'll specify an ultrametric method of building the tree so we can locate a definite root.
 
 We'll save this output into another object: fitGTR.
 
@@ -61,6 +64,8 @@ The function `tic()` and `toc()` here are part of the tictoc package which lets 
 ### Bootstrapping
 
 Next, we'll perform a bootstrapping analysis: this allows our software to generate many trees at once and compare them to each other. From this, we can find out how often each branch appears in our initial tree. High percentages mean many trees agree with a node or taxa's placement, while low percentages indicate disagreement between tree versions.
+
+This code block utilizes parallel processing to speed up the computation time. You can remove the beginning and ending commands if you'd like, but it might take you longer to produce results.
 
 ```{r}
 #estimated time: ~10 minutes
@@ -82,7 +87,7 @@ unregister()
 
 ## Plotting Trees
 
-There are several ways to plot out a phylogenetic tree once we have our data. Phangorn has one built in:
+There are several ways to plot out a phylogenetic tree once we have our data. Phangorn has one built in, but it usually comes out dense and hard to read:
 
 ```{r}
 plotBS(midpoint(fitGTR$tree), bs, p = 50, type="p", main="Standard bootstrap")
@@ -90,7 +95,7 @@ plotBS(midpoint(fitGTR$tree), bs, p = 50, type="p", main="Standard bootstrap")
 tree_stdbs <- plotBS(fitGTR$tree, bs, type = "p")
 ```
 
-We'll store this tree as an object so that we can use other functions to illustrate it.
+We'll store the data behind this tree as an object so that we can use other functions to illustrate it.
 
 You can use ape, which depends on phangorn:
 
